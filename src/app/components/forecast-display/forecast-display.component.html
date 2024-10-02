@@ -1,0 +1,9 @@
+<div *ngIf="forecastData">
+    <h2>7-Day Forecast for {{ forecastData.city.name }}</h2>
+    <ul>
+      <li *ngFor="let day of forecastData.list">
+        {{ day.dt_txt | date }} - {{ day.main.temp }}°C, {{ day.weather[0].description }}
+      </li>
+    </ul>
+  </div>
+  
