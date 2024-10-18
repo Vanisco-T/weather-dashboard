@@ -12,10 +12,10 @@ import {
 } from './components/weather-display/weather-display.component';
 
 const routes: Routes = [
-  { path: 'weather/:city', component: WeatherDisplayComponent },
-  { path: 'forecast/:city', component: ForecastDisplayComponent },
-  { path: '', redirectTo: '/weather/London', pathMatch: 'full' },
-  { path: '**', redirectTo: '/weather/London' }
+  { path: '', redirectTo: '/current-weather', pathMatch: 'full' }, // Default route
+  { path: 'current-weather', component: WeatherDisplayComponent },
+  { path: 'forecast', component: ForecastDisplayComponent },
+  { path: '**', redirectTo: '/current-weather' } // Fallback route
 ];
 
 @NgModule({
