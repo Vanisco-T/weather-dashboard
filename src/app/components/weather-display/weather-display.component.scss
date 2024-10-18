@@ -238,3 +238,13 @@ canvas {
   white-space: pre-line; /* This is required to allow newlines */
   width: 2000px;
 }
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chart-container {
+  width: 100%;
+  height: 400px; // Adjust as needed
+}

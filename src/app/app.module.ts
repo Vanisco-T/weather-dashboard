@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { Chart } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { NgChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,7 +32,8 @@ Chart.register(ChartDataLabels);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgChartsModule  // Add this line
+    NgChartsModule,  // Add this line
+    HighchartsChartModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
