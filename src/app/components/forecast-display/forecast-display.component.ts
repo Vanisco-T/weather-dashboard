@@ -14,7 +14,7 @@ import { WeatherService } from '../../services/weather.service';
 export class ForecastDisplayComponent implements OnInit {
   forcastData: any;
 
-  constructor(private route: ActivatedRoute, private weatherService: WeatherService) {}
+  constructor(private route: ActivatedRoute, public weatherService: WeatherService) {}
 
   ngOnInit(): void {
     // Subscribe to the defaultData$ Observable
@@ -41,5 +41,14 @@ export class ForecastDisplayComponent implements OnInit {
       }
     );
 
+  }
+  // Wrapper method to call displayTemperature from the service
+  displayTemperature(tempInKelvin: number): number {
+    return this.weatherService.displayTemperature(tempInKelvin);
+  }
+
+  // Method to toggle temperature unit by calling the service
+  toggleTemperatureUnit(): void {
+    this.weatherService.toggleTemperatureUnit(null); // Call toggle method in service
   }
 }

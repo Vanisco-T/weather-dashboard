@@ -1,4 +1,18 @@
 <div *ngIf="weatherData; else loading" class="weather-container">
+  <!-- Toggle Switch for Celsius/Fahrenheit -->
+  
+  <div class="flex-container">
+    <div id="change">
+      CHANGE TO °F
+    </div>
+    <div>
+      <label class="toggle-switch">
+        <input type="checkbox" (change)="toggleTemperatureUnit()" />
+        <span class="slider"></span>
+        <span class="toggle-label">{{ weatherService.isCelsius ? '°C' : '°F' }}</span>
+      </label>
+    </div>
+  </div>
   <div class="flex-container">
     <!-- Weather Card -->
     <div class="weather-card">
@@ -9,9 +23,11 @@
 
       <div class="weather-main">
         <div class="weather-info">
-          <h1 class="temperature">{{ weatherData.main.temp - 273 | number:'2.2-4' }}°C</h1>
-          <p class="temp-range">Max: {{ weatherData.main.temp_max - 273 | number:'2.2-4' }}°C, Min: {{ weatherData.main.temp_min - 273 | number:'2.2-4' }}°C</p>
-        </div>
+          <h1 class="temperature">{{ displayTemperature(weatherData.main.temp)| number:'2.1-2' }}°{{ weatherService.isCelsius ? 'C' : 'F' }}</h1>
+          <p class="temp-range">
+            Max: {{ displayTemperature(weatherData.main.temp_max) | number:'2.1-2' }}°{{ weatherService.isCelsius? 'C' : 'F' }}, 
+            Min: {{ displayTemperature(weatherData.main.temp_min) | number:'2.1-2' }}°{{ weatherService.isCelsius ? 'C' : 'F' }}
+          </p>        </div>
         <div class="weather-icon">
           <img [src]="'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@4x.png'" alt="Weather icon">
         </div>

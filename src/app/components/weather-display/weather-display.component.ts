@@ -20,8 +20,9 @@ export class WeatherDisplayComponent implements OnInit {
   date: Date;
   forcastData: any;
   chartOptions?: Highcharts.Options; // Mark chartOptions as optional (undefined initially)
+  
 
-  constructor(private weatherService: WeatherService) {
+  constructor(public weatherService: WeatherService) {
     this.date = new Date();
   }
 
@@ -58,6 +59,17 @@ export class WeatherDisplayComponent implements OnInit {
         console.error('Error retrieving forecast data:', error);
       }
     );
+
+  }
+
+  // Wrapper method to call displayTemperature from the service
+  displayTemperature(tempInKelvin: number): number {
+    return this.weatherService.displayTemperature(tempInKelvin);
+  }
+
+  // Method to toggle temperature unit by calling the service
+  toggleTemperatureUnit(): void {
+    this.weatherService.toggleTemperatureUnit(null); // Call toggle method in service
   }
 
   initializeChart(): void {
@@ -66,7 +78,7 @@ export class WeatherDisplayComponent implements OnInit {
     );
   
     const temperatureDataPoints = this.forcastData.hourly.slice(0, 48).map((item: { temp: number; }) =>
-      (item.temp - 273.15) // Convert Kelvin to Celsius
+      this.displayTemperature(item.temp) // Convert Kelvin to Celsius
     );
   
     const windSpeedDataPoints = this.forcastData.hourly.slice(0, 48).map((item: { wind_speed: number; }) =>

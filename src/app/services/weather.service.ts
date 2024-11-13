@@ -20,7 +20,19 @@ export class WeatherService {
    public forcastData$: Observable<any> = this.dataForcastSubject.asObservable();
  
   constructor(private http: HttpClient) {}
-
+  isCelsius: boolean = true; // Default to Celsius
+   // Toggle unit
+   toggleTemperatureUnit(event: any): void {
+    this.isCelsius = !this.isCelsius;
+  }
+   // Function to display temperature based on the selected unit
+   displayTemperature(tempInKelvin: number): number {
+    if (this.isCelsius) {
+      return tempInKelvin - 273.15;
+    } else {
+      return (tempInKelvin - 273.15) * 9/5 + 32;
+    }
+  }
    // Method to set the default weather data
    setDefaultData(data: any): void {
     this.defaultDataSubject.next(data); // Update the BehaviorSubject
