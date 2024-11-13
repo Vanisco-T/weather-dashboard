@@ -81,7 +81,7 @@ export class WeatherDisplayComponent implements OnInit {
       chart: {
         type: 'line',
         height: '300px',
-        backgroundColor: '#F4F6F8',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
         scrollablePlotArea: {
           minWidth: 7000, // Make the chart much wider to allow scrolling
           scrollPositionX: 1,
@@ -126,9 +126,10 @@ export class WeatherDisplayComponent implements OnInit {
           
             return `
               <div style="text-align: center;">
+                <img src="${iconUrl}" style="width: 50px;" alt="Weather icon"/><br/>
                 <span style="font-size: 12px; color: #333;">${windSpeed} km/h</span><br/>
                 <span>${time}</span><br/>
-                <img src="${iconUrl}" style="width: 24px;" alt="Weather icon"/>
+               
               </div>`;
           }
           ,
@@ -146,11 +147,11 @@ export class WeatherDisplayComponent implements OnInit {
       }],
       series: [{
         type: 'line',
-        name: 'Temperature',
+        name: '',
         data: temperatureDataPoints.map((value: number, index: number) => [labels[index], value]),
         marker: {
           enabled: true,
-          radius: 4, // Increase marker radius for better visibility
+          radius: 0, // Increase marker radius for better visibility
         },
         dataLabels: {
           enabled: true,
