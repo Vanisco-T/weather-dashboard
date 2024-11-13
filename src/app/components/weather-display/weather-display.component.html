@@ -1,68 +1,56 @@
 <div *ngIf="weatherData; else loading" class="weather-container">
-  <div class="weather-card">
-    <div class="weather-location">
-      <p class="location">{{ weatherData.name }}, {{ weatherData.sys.country }} </p>
-        <p class="date">{{ this.date | date:'EEEE' | uppercase }} </p>   
-    </div>
+  <div class="flex-container">
+    <!-- Weather Card -->
+    <div class="weather-card">
+      <div class="weather-location">
+        <p class="location">{{ weatherData.name }}, {{ weatherData.sys.country }}</p>
+        <p class="date">{{ this.date | date:'EEEE' | uppercase }}</p>
+      </div>
 
-    <div class="weather-main">
-      <div class="weather-info">
-        <h1 class="temperature">{{ weatherData.main.temp-273 | number:'2.2-4' }}°C</h1>
-        <p class="temp-range">Max: {{ weatherData.main.temp_max-273 | number:'2.2-4' }}°C, Min: {{ weatherData.main.temp_min-273 | number:'2.2-4' }}°C</p>
-      </div>
-      <div class="weather-icon">
-        <img [src]="'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@4x.png'" alt="Weather icon">
-      </div>
-      
-    </div>
-
-    <div class="weather-details">
-      <div class="weather-item">
-        <span class="icon">💧</span>
-        <span>{{ weatherData.main.humidity }}%</span>
-      </div>
-      <div class="weather-item">
-        <span class="icon">🌬️</span>
-        <span>{{ weatherData.wind.speed }} km/h</span>
-      </div>
-      <div class="weather-item">
-        <span class="icon">🧭</span>
-        <span>{{ weatherData.wind.deg }}°</span>
-      </div>
-      <div class="weather-item">
-        <span class="icon">🌡️</span>
-        <span>{{ weatherData.main.pressure }} mb</span>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="forcastData; else loading" class="weather-forecast">
-    <h3>Dialy variation</h3>
-    <div class="forecast-wrapper">
-        <div *ngFor="let hour of forcastData.hourly.slice(0, 48)" class="forecast-item">
-            <p class="forecast-hour">{{ hour.dt * 1000 | date: 'ha' }}</p>
-            <img [src]="'http://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="Weather icon" class="forecast-icon">
-            <p class="forecast-temp">{{ hour.temp - 273.15 | number:'1.0-1' }}°C</p>
-            <p class="forecast-precipitation">💧{{ (hour.pop * 100) | number:'1.0-0' }}%</p>
-            <p class="forecast-wind">🌬️ {{ hour.wind_speed }} km/h</p>
-            <p class="forecast-wind-direction">↘️ {{ hour.wind_deg }}°</p>
+      <div class="weather-main">
+        <div class="weather-info">
+          <h1 class="temperature">{{ weatherData.main.temp - 273 | number:'2.2-4' }}°C</h1>
+          <p class="temp-range">Max: {{ weatherData.main.temp_max - 273 | number:'2.2-4' }}°C, Min: {{ weatherData.main.temp_min - 273 | number:'2.2-4' }}°C</p>
         </div>
+        <div class="weather-icon">
+          <img [src]="'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@4x.png'" alt="Weather icon">
+        </div>
+      </div>
+
+      <div class="weather-details">
+        <div class="weather-item">
+          <span class="icon">💧</span>
+          <span>{{ weatherData.main.humidity }}%</span>
+        </div>
+        <div class="weather-item">
+          <span class="icon">🌬️</span>
+          <span>{{ weatherData.wind.speed }} km/h</span>
+        </div>
+        <div class="weather-item">
+          <span class="icon">🧭</span>
+          <span>{{ weatherData.wind.deg }}°</span>
+        </div>
+        <div class="weather-item">
+          <span class="icon">🌡️</span>
+          <span>{{ weatherData.main.pressure }} mb</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart Container -->
+    <div *ngIf="chartOptions" class="chart-container">
+      <highcharts-chart
+        [Highcharts]="Highcharts"
+        [options]="chartOptions"
+        style="display: block; width: 100%;"
+      ></highcharts-chart>
     </div>
   </div>
 
-<ng-template #loading>
-    <p>Loading 48-hour forecast...</p>
-</ng-template>
-
-<div *ngIf="chartOptions">
-  <highcharts-chart
-    [Highcharts]="Highcharts"
-    [options]="chartOptions"
-    style="width: 100%; height: 400px; display: block;"
-  ></highcharts-chart>
-</div>
-  
-  <div><app-forecast-display/></div>
+  <!-- Forecast Section -->
+  <div class="weather-forecast">
+    <app-forecast-display></app-forecast-display>
+  </div>
 </div>
 
 <ng-template #loading>

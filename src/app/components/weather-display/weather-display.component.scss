@@ -1,29 +1,35 @@
 .weather-container {
   display: grid;
-  justify-content: center;
-  align-items: center;
-  height: 180vh; /* Adjust to fit screen */
+  gap: 20px;
+  padding: 20px;
   background: linear-gradient(to bottom, #838f6c, #697f83);
   font-family: 'Arial', sans-serif;
-  padding: 20px;
   box-sizing: border-box;
 }
 
-.weather-card {
-  background: rgba(255, 255, 255, 0.8);
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.weather-card,
+.chart-container {
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 15px;
   padding: 20px;
-  width: 100%;
-  max-width: 400px; /* Sets a max-width */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-bottom: 15%; /* Added margin to separate weather card from forecast */
+  flex: 1 1 48%;
+  min-width: 350px;
+  box-sizing: border-box;
 }
 
 .weather-location {
   text-align: left;
-  color: #555;
-  margin-bottom: 20px; /* Added margin to give space below location */
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .location {
@@ -32,9 +38,8 @@
 }
 
 .date {
-  font-size: 1.9rem;
-  font-weight: bolder;
-  margin-bottom: 10px; /* Added margin to create space below the date */
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .weather-main {
@@ -46,7 +51,6 @@
 
 .weather-info {
   text-align: left;
-  margin-right: 10px; /* Adds a little gap between the temperature and icon */
 }
 
 .temperature {
@@ -56,9 +60,8 @@
 }
 
 .temp-range {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #555;
-  margin-top: 5px; /* Added margin for better spacing between temperature and range */
 }
 
 .weather-icon img {
@@ -75,7 +78,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .icon {
@@ -83,16 +86,13 @@
   margin-bottom: 5px;
 }
 
-/* Forecast Section */
 .weather-forecast {
   background-color: #f0f0f0;
   padding: 20px;
   border-radius: 10px;
   max-width: 100%;
   text-align: center;
-  overflow: hidden;
-  margin-top: 20px; /* Added margin between weather card and forecast */
-  margin-bottom: 17%;
+  margin-top: 20px;
 }
 
 .forecast-wrapper {
@@ -100,9 +100,6 @@
   overflow-x: auto;
   gap: 15px;
   padding: 15px 0;
-  border-bottom: 2px solid #dcdcdc;
-  scroll-behavior: smooth; /* Smooth scroll for forecast */
-  margin-bottom: 15px; /* Adds margin below forecast wrapper */
 }
 
 .forecast-item {
@@ -115,15 +112,10 @@
   padding: 10px;
   min-width: 80px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
-  text-align: center;
-  margin-bottom: 10px; /* Adds margin between forecast items */
 }
 
 .forecast-hour {
   font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 5px;
   color: #333;
 }
 
@@ -134,22 +126,7 @@
 
 .forecast-temp {
   font-size: 1.2rem;
-  font-weight: bold;
   color: #f39c12;
-  margin: 5px 0;
-}
-
-.forecast-precipitation {
-  font-size: 0.9rem;
-  color: #3498db;
-  margin-bottom: 5px; /* Adds space between precipitation and wind details */
-}
-
-.forecast-wind,
-.forecast-wind-direction {
-  font-size: 0.8rem;
-  color: #555;
-  margin-bottom: 5px; /* Adds space between wind and wind direction */
 }
 
 /* Scrollbar styling */
@@ -166,85 +143,35 @@
   background-color: #f0f0f0;
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .weather-card {
-      width: 100%;
-      max-width: 350px;
+  .weather-card, .chart-container {
+    flex: 1 1 100%;
   }
 
-  .forecast-item {
-      min-width: 70px;
+  .temperature {
+    font-size: 3.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .weather-card {
-      width: 100%;
-      padding: 10px;
+    padding: 15px;
   }
 
   .temperature {
-      font-size: 3.5rem;
+    font-size: 3rem;
   }
 
   .weather-icon img {
-      width: 80px;
+    width: 80px;
   }
 
   .forecast-item {
-      min-width: 60px;
+    min-width: 60px;
   }
 
   .forecast-temp {
-      font-size: 1rem;
+    font-size: 1rem;
   }
-}
-.chart-container {
-  position: relative;
-  width: 100%;
-  overflow-x: scroll; /* Enable horizontal scrolling */
-  overflow-y: hidden; /* Disable vertical scrolling */
-  margin-top: 15%;
-  margin-bottom: 15%;
-  white-space: nowrap; 
-}
-
-canvas {
-  min-width: 1200px; /* Set a minimum width to handle 48 values */
-  height: 400px; /* Adjust the height as per your need */
- 
-}
-.label-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-size: 10px;
-}
-
-.label-block span {
-  display: block;
-  margin: 2px 0;
-}
-
-.label-block img {
-  width: 20px;
-  height: 20px;
-}
-.chart-container canvas {
-  display: block;
-  font-size: 12px; /* Ensure the font size is appropriate */
-  white-space: pre-line; /* This is required to allow newlines */
-  width: 2000px;
-}
-:host {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.chart-container {
-  width: 100%;
-  height: 400px; // Adjust as needed
 }
