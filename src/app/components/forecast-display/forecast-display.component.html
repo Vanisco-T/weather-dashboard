@@ -1,7 +1,6 @@
 <div *ngIf="forcastData; else loading" class="forecast-container">
   <div class="header">
     <h1>WEATHER FORECAST</h1>
-    <!-- <p class="location">{{ location }}, {{ country }}</p> -->
   </div>
 
   <div class="forecast-grid">
@@ -32,7 +31,27 @@
         </p>
         <p>Max: {{ displayTemperature(day.temp.max )| number:'1.0-0' }}°{{ weatherService.isCelsius ? 'C' : 'F' }}</p>
       </div>
+
+      <!-- Button to open modal -->
+      <button class="details-button" (click)="openModal(day)">View Details</button>
     </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="selectedDay">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2 class="modal-titile" >Forecast Details</h2>
+    <p><strong>Date:</strong> {{ selectedDay.dt * 1000 | date: 'MMMM d, y' }}</p>
+    <p><strong>Temperature:</strong> {{ displayTemperature(selectedDay.temp.day) | number:'2.1-2' }}°{{ weatherService.isCelsius ? 'C' : 'F' }}</p>
+    <p><strong>Humidity:</strong> {{ selectedDay.humidity }}%</p>
+    <p><strong>Wind Speed:</strong> {{ selectedDay.wind_speed }} km/h</p>
+    <p><strong>Pressure:</strong> {{ selectedDay.pressure }} hPa</p>
+    <p><strong>Sunrise:</strong> {{ selectedDay.sunrise * 1000 | date: 'h:mm a' }}</p>
+    <p><strong>Sunset:</strong> {{ selectedDay.sunset * 1000 | date: 'h:mm a' }}</p>
+    <p><strong>Summarry:</strong> {{ selectedDay.summary }}</p>
+
   </div>
 </div>
 

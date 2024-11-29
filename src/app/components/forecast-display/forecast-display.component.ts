@@ -13,6 +13,8 @@ import { WeatherService } from '../../services/weather.service';
 })
 export class ForecastDisplayComponent implements OnInit {
   forcastData: any;
+  selectedDay: any = null; // Holds the data of the selected forecast day
+
 
   constructor(private route: ActivatedRoute, public weatherService: WeatherService) {}
 
@@ -25,7 +27,8 @@ export class ForecastDisplayComponent implements OnInit {
             this.weatherService.setForcastData(dataForcast);
             this.weatherService.getForcastData().subscribe(
               (data) => {
-                if (data) {                  
+                if (data) {           
+                  console.log(data)       
                   this.forcastData = data;
                 }
               },
@@ -46,9 +49,17 @@ export class ForecastDisplayComponent implements OnInit {
   displayTemperature(tempInKelvin: number): number {
     return this.weatherService.displayTemperature(tempInKelvin);
   }
-
   // Method to toggle temperature unit by calling the service
   toggleTemperatureUnit(): void {
     this.weatherService.toggleTemperatureUnit(null); // Call toggle method in service
+  }
+  // Opens the modal and sets the selected day's details
+  openModal(day: any): void {
+    this.selectedDay = day;
+  }
+
+  // Closes the modal
+  closeModal(): void {
+    this.selectedDay = null;
   }
 }
